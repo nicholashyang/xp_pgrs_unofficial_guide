@@ -1,16 +1,31 @@
 \section{Obsidian}
-  Obsidian是一款基于markdowm格式的笔记软件。
+  Obsidian是一款开源的笔记软件。将一个文件夹创建为一个Obsidian仓库本质上是在该文件夹里创建了一个名为.obsidian的子文件夹。所有笔记被创建为markdown格式。这意味着使用
 
   \subsection{为什么要使用Obsidian?}
+  相比较于上面常见的其他笔记软件（Notion，OneNote，...）Obsidain的优势在哪里？为什么我要使用Obsidian？
+  
+  首先是Obsidian非常独特的设计--"双向链接"。这意味着你可以在笔记之间创建类似超链接一样的引用将笔记关联起来。这种链接是双向的，意味着你可以查看哪些笔记引用了这篇笔记，这篇笔记又被哪些笔记引用了。这提供了一种网络状的，去中心的方式来整理你的笔记。你不需要用传统的方式用一个目录来整理你的笔记。个人的感受是在做科研时经常会有一些零碎的，不成体系的小想法。这种时候你就可以把这些想法写成一篇obsidian笔记，然后在之后的时间里再去
+  
+  相比较与OneNote，基于markdowm格式的笔记可以更加容易地转化为其他格式的文件，包括Microsoft word，LaTeX等等。这意味着你可以很方便地将笔记内容迁移到其他软件里。
+  
+  Obsidian提供了丰富的客制化选项，你可以打造一个适合自己的笔记软件。原生Obsidain不支持的一些功能大多可以使用某些插件来实现。甚至有条件的同学可以自己写一个插件。
+  
+  你的笔记打算保存多久？几年？十几年？几十年？你的笔记存放在哪里？本地还是远端服务器？如果开发商跑路了怎么办？我还可以访问我的笔记吗？这些问题Obsidian统统可以解决。首先Obsidian作为一个开源项目，你可以直接在GitHub上下载他的源代码。这意味着即使官方停止开发原地跑路，你仍然可以毫无障碍地使用obsidian以及访问你所有的笔记，因为所有东西都是保存在本地的。
+  
+  数据安全性。
+
+
+  \subsection{Obsidian的弊端}
   \begin{itemize}
-    \item Obsidian提供了一种非结构化的，去中心的方式来记笔记。个人的感受是在做科研时经常会有一些零碎的，不成体系的小想法。这种时候你就可以把他写成一篇obsidian笔记，然后
-    \item Obsidian提供了丰富的客制化选项，你可以打造一个适合自己的笔记软件。原生Obsidain不支持的一些功能大多可以使用某些插件来实现。甚至有条件的同学可以自己写一个插件。
-    \item Obsidian笔记是保存在本地的。安全性
+  \item 首先原生Obsidian的功能肯定是不如Notion丰富
+  \item 尽管Obsidian有着活跃的社区提供各种各样实用的插件，仍然有可能你需要的某些功能难以实现或者尚未被提供。在这种情况下
+  \item 前端开发
   \end{itemize}
 
   \subsection{如何在不同设备上同步Obsidian笔记}
+  obsidian官方同步服务，付费，不推荐。
   对于苹果全家桶
 
-  Windows oneDrive
+  Windows oneDrive。这是本人现在所使用的方法。操作也很简单，就是把整个Obsidian仓库放到oneDrive文件夹里，然后再在其他设备上登录oneDrive，用Obsidian打开oneDrive文件夹里的Obsdian仓库。这样你在一个设备上的编辑就会同步到oneDrive文件夹，进而同步到所有设备上。（记得将Obsidian仓库设置为“始终保留在此设备上”）。这个方案的缺点是不方便在移动端使用，因为移动端不能直接将oneDrive里的文件夹打开成为Obsidian仓库。
 
-  Github
+  GitHub。
