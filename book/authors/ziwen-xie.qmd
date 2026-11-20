@@ -1,0 +1,15 @@
+---
+title: Ziwen Xie
+discussion-id: xp-guide-author-ziwen-xie
+guide-author-id: ziwen-xie
+---
+
+::: {#xp-guide-author-ziwen-xie}
+:::
+
+:::: {.contribution authors="editorial"}
+
+::: {.guide-author-profile data-guide-author-id="ziwen-xie"}
+:::
+
+::::

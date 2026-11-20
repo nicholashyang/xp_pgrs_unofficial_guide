@@ -1,0 +1,15 @@
+---
+title: Jialin Wang
+discussion-id: xp-guide-author-jialin-wang
+guide-author-id: jialin-wang
+---
+
+::: {#xp-guide-author-jialin-wang}
+:::
+
+:::: {.contribution authors="editorial"}
+
+::: {.guide-author-profile data-guide-author-id="jialin-wang"}
+:::
+
+::::

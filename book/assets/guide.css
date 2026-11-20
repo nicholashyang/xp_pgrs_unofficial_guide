@@ -1,0 +1,270 @@
+:root {
+  --guide-navy: #18364a;
+  --guide-teal: #147d80;
+  --guide-paper: #fffefa;
+  --guide-line: #dce4e6;
+  --guide-muted: #637783;
+  --guide-ink: #293c47;
+  --guide-link: #126e79;
+  --guide-link-hover: #064b59;
+  --guide-soft: #f1f7f5;
+  --guide-card: #fff;
+  --guide-warning: #8c651d;
+}
+
+body.quarto-dark {
+  --guide-navy: #e5edf3;
+  --guide-teal: #79c9c6;
+  --guide-paper: #17212b;
+  --guide-line: #354653;
+  --guide-muted: #a7bac5;
+  --guide-ink: #dbe5eb;
+  --guide-link: #8bd4db;
+  --guide-link-hover: #c4f4f4;
+  --guide-soft: #20313c;
+  --guide-card: #233441;
+  --guide-warning: #efd297;
+}
+
+body {
+  background: var(--guide-paper);
+  color: var(--guide-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  line-height: 1.85;
+}
+
+#quarto-content { max-width: 1600px; margin-inline: auto; }
+main.content { max-width: 850px; }
+h1, h2, h3, h4, .sidebar-title { color: var(--guide-navy); }
+h1.title { font-weight: 730; letter-spacing: -.025em; line-height: 1.3; }
+h2 { margin-top: 2.3rem; border-bottom-color: var(--guide-line); }
+h3 { margin-top: 1.9rem; }
+a { color: var(--guide-link); text-underline-offset: .17em; }
+a:hover { color: var(--guide-link-hover); }
+p { margin-bottom: 1.15rem; }
+li > p { margin-bottom: .6rem; }
+blockquote { border-left-color: #83b4b2; background: var(--guide-soft); padding: .7rem 1rem; }
+blockquote > :last-child { margin-bottom: 0; }
+table { font-size: .92rem; line-height: 1.65; }
+img { max-width: 100%; height: auto; border-radius: .3rem; }
+figcaption { color: var(--guide-muted); line-height: 1.6; }
+.sidebar-navigation { border-right: 1px solid var(--guide-line); }
+.sidebar-title { font-weight: 700; line-height: 1.5; }
+.sidebar-item .sidebar-item-text { line-height: 1.55; }
+.sidebar-item .sidebar-item-text.active { color: var(--guide-teal); font-weight: 650; }
+.sidebar-menu-container { padding-top: .5rem; }
+#TOC { line-height: 1.55; }
+.quarto-title-meta { color: var(--guide-muted); }
+.page-navigation { border-top: 1px solid var(--guide-line); padding-top: 1.2rem; }
+.guide-actions { display: flex; flex-wrap: wrap; gap: .55rem; margin: 1rem 0 1.7rem; }
+.guide-actions a {
+  border: 1px solid var(--guide-line); border-radius: 99px;
+  padding: .25rem .85rem; font-size: .83rem; text-decoration: none;
+}
+.guide-actions a:hover { background: var(--guide-soft); border-color: var(--guide-teal); }
+.guide-contribution-help { color: var(--guide-muted); font-size: .85rem; line-height: 1.7; }
+
+/* Participation and discussion belong to the page, outside its article body. */
+.guide-afterword {
+  margin-top: 3.5rem;
+  padding: 1.5rem clamp(1rem, 3vw, 1.75rem);
+  background: var(--guide-soft);
+  border: 1px solid var(--guide-line);
+  border-top: 4px solid var(--guide-teal);
+  border-radius: .65rem;
+}
+.guide-afterword-label {
+  margin: 0 0 1.25rem;
+  color: var(--guide-teal);
+  font-size: .8rem;
+  font-weight: 650;
+  letter-spacing: .03em;
+}
+.guide-afterword .guide-participate > h2,
+.guide-afterword .guide-discussion > h2 { margin-top: 0; }
+.guide-afterword .guide-discussion {
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--guide-line);
+}
+.guide-afterword .guide-actions { margin-bottom: .85rem; }
+.guide-afterword .guide-contribution-help,
+.guide-afterword .guide-discussion > :last-child { margin-bottom: 0; }
+
+/* Reserve a quiet right-hand rail without moving headings or article blocks. */
+.contribution {
+  position: relative;
+  min-height: 3rem;
+  padding: .15rem 3.25rem .25rem 0;
+  border-inline-end: 1px solid var(--guide-line);
+}
+.contribution.attribution-active { background: var(--guide-soft); }
+.paragraph-attribution {
+  position: relative; z-index: 3; width: 2.5rem;
+  float: right; clear: right;
+  font-size: .78rem; line-height: 1.5; color: var(--guide-muted);
+  margin: .25rem -2.9rem .5rem .4rem;
+}
+.attribution-enhanced .paragraph-attribution {
+  position: fixed; float: none; margin: 0; visibility: hidden;
+}
+.paragraph-attribution > summary {
+  display: grid; place-items: center; width: 2.5rem; height: 2.5rem;
+  cursor: pointer; list-style: none; color: var(--guide-muted);
+  border: 1px solid var(--guide-line); border-radius: 50%;
+  background: var(--guide-paper);
+}
+.paragraph-attribution > summary::-webkit-details-marker { display: none; }
+.paragraph-attribution > summary::marker { content: ""; }
+.paragraph-attribution > summary:hover,
+.paragraph-attribution[open] > summary { color: var(--guide-teal); background: var(--guide-soft); }
+.paragraph-attribution > summary:focus-visible { outline: 2px solid var(--guide-teal); outline-offset: 2px; }
+.attribution-icon { display: block; width: 1.25rem; height: 1.25rem; }
+.attribution-label {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.paragraph-attribution[open] { z-index: 50; }
+.attribution-card {
+  position: absolute; right: 100%; top: 0; width: 18rem;
+  max-width: calc(100vw - 2rem); max-height: calc(100vh - 2rem);
+  padding: .8rem 1rem; background: var(--guide-card); color: var(--guide-ink);
+  border: 1px solid var(--guide-line); border-radius: .6rem;
+  box-shadow: 0 9px 32px #18364a1c; overflow-wrap: anywhere; overflow-y: auto;
+}
+.attribution-card-above .attribution-card { top: auto; bottom: 0; }
+.attribution-card p { margin: 0; }
+.attribution-card p + p { margin-top: .45rem; }
+.attribution-card strong { display: block; color: var(--guide-navy); font-size: .72rem; }
+.attribution-card .attribution-scope {
+  border-top: 1px solid var(--guide-line); padding-top: .45rem;
+  color: var(--guide-muted); font-size: .74rem;
+}
+.attribution-card .attribution-status {
+  border-top: 1px solid var(--guide-line); padding-top: .45rem;
+  color: var(--guide-warning); font-size: .74rem;
+}
+.attribution-range-highlight {
+  position: fixed; z-index: 2; box-sizing: border-box; pointer-events: none;
+  border: 1px solid var(--guide-teal); border-inline-end-width: 3px;
+  border-radius: .25rem;
+}
+
+@media (max-width: 991.98px) {
+  main.content { max-width: 100%; }
+  .attribution-card { right: 0; top: 100%; width: min(18rem, calc(100vw - 2rem)); }
+  .attribution-card-above .attribution-card { top: auto; bottom: 100%; }
+  h1.title { font-size: 1.95rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+}
+
+@media print {
+  .paragraph-attribution, .attribution-range-highlight, .guide-afterword { display: none; }
+  .contribution { padding: 0; border: 0; min-height: 0; background: none !important; }
+  body { background: white; color: black; }
+}
+
+.guide-reading-controls { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:0 0 1.25rem; font-size:.85rem; }
+.guide-reading-controls a, .guide-reading-controls span { border:1px solid var(--guide-line); border-radius:99px; padding:.15rem .7rem; text-decoration:none; }
+.guide-reading-controls [aria-current] { background:var(--guide-soft); font-weight:650; }
+.guide-translation-note { color:var(--guide-muted); font-size:.84rem; border-left:3px solid var(--guide-teal); padding:.6rem .85rem; background:var(--guide-soft); }
+.guide-author-summary { color:var(--guide-muted); }
+@media print { .guide-reading-controls, .guide-translation-note { display:none; } }
+
+/* Short changelog records share the article's typography and attribution rail. */
+.guide-update {
+  margin-block: .35rem 1rem;
+  padding-block: .55rem .85rem;
+  border-bottom: 1px solid var(--guide-line);
+}
+.guide-update > p { margin-bottom: .4rem; }
+.guide-update > p:first-of-type {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .7rem;
+  line-height: 1.6;
+}
+.guide-update-date { color: var(--guide-muted); font-size: .85rem; font-variant-numeric: tabular-nums; }
+.guide-update-kind {
+  display: inline-block; border: 1px solid var(--guide-line); border-radius: 99px;
+  padding: .05rem .55rem; color: var(--guide-muted); font-size: .75rem;
+}
+.guide-update-kind.content { color: var(--guide-teal); background: var(--guide-soft); }
+.guide-update-links { color: var(--guide-muted); font-size: .86rem; line-height: 1.65; overflow-wrap: anywhere; }
+.guide-update-links p { margin: 0; }
+.guide-update > :last-child { margin-bottom: 0; }
+
+/* Keep profile links recognizable and touchable without repeating their labels. */
+.guide-profile-links {
+  position: relative; display: inline-flex; flex-wrap: wrap; align-items: center;
+  gap: .5rem; max-width: 100%; margin: .25rem 0 .75rem; vertical-align: middle;
+}
+.guide-profile-links-compact { gap: .35rem; margin: .2rem 0 .2rem .4rem; }
+.guide-profile-link {
+  display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center;
+  width: 2.75rem; height: 2.75rem; color: var(--guide-ink);
+  background: var(--guide-card); border: 1px solid var(--guide-line);
+  border-radius: 50%; text-decoration: none;
+}
+.guide-profile-link:hover, .guide-profile-link:focus-visible {
+  z-index: 5; color: var(--guide-teal); background: var(--guide-soft);
+  border-color: var(--guide-teal);
+}
+.guide-profile-link:focus-visible { outline: 2px solid var(--guide-teal); outline-offset: 3px; }
+.guide-profile-icon { display: block; flex: none; width: 1.35rem; height: 1.35rem; line-height: 0; }
+.guide-profile-icon > svg, .guide-profile-icon > img {
+  display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 0;
+}
+.guide-profile-icon > .guide-profile-icon-dark { display: none; }
+body.quarto-dark .guide-profile-icon > .guide-profile-icon-light { display: none; }
+body.quarto-dark .guide-profile-icon > .guide-profile-icon-dark { display: block; }
+.guide-profile-tooltip {
+  position: absolute; z-index: 70; left: 0; bottom: calc(100% + .5rem);
+  width: max-content; max-width: min(22rem, 100%); padding: .45rem .65rem;
+  border: 1px solid var(--guide-line); border-radius: .45rem;
+  background: var(--guide-card); color: var(--guide-ink); box-shadow: 0 5px 20px #18364a20;
+  font-size: .78rem; font-weight: normal; line-height: 1.5; text-align: start;
+  overflow-wrap: anywhere; pointer-events: none; visibility: hidden; opacity: 0;
+}
+.guide-profile-link:hover > .guide-profile-tooltip,
+.guide-profile-link:focus-visible > .guide-profile-tooltip { visibility: visible; opacity: 1; }
+.guide-profile-print-label { display: none; overflow-wrap: anywhere; }
+
+/* Keep each person's links next to their name inside the attribution card. */
+.attribution-person { display: block; margin-top: .2rem; }
+.attribution-person + .attribution-person { margin-top: .6rem; }
+.attribution-person-name { font-weight: 550; }
+.guide-profile-links-attribution {
+  display: flex; gap: .35rem; margin: .3rem 0 .6rem;
+}
+.guide-profile-links-attribution .guide-profile-link { width: 2.25rem; height: 2.25rem; }
+.guide-profile-links-attribution .guide-profile-icon { width: 1.15rem; height: 1.15rem; }
+.guide-profile-links-attribution > .guide-profile-tooltip {
+  display: none; position: static; order: 1; flex: 0 0 100%;
+  width: auto; max-width: 100%; margin-top: .1rem;
+  box-sizing: border-box; box-shadow: none;
+}
+/* Mouse users get the native title without moving the hovered icon. Keyboard
+   users get an in-flow hint, kept inside even a clipped or scrolling card. */
+.guide-profile-links-attribution > .guide-profile-link:focus-visible + .guide-profile-tooltip {
+  display: block; visibility: visible; opacity: 1;
+}
+@media print {
+  .guide-profile-links { display: inline; margin: 0; }
+  .guide-profile-link {
+    display: inline; width: auto; height: auto; border: 0; border-radius: 0;
+    background: none; color: inherit; text-decoration: underline;
+  }
+  .guide-profile-link + .guide-profile-link::before { content: " · "; }
+  .guide-profile-icon, .guide-profile-tooltip { display: none !important; }
+  .guide-profile-print-label { display: inline; }
+}
+
+/* Keep the navigation surfaces in the same palette as the reading area. */
+.sidebar.sidebar-navigation, .quarto-secondary-nav {
+  background-color: var(--guide-paper);
+  color: var(--guide-ink);
+}
+.breadcrumb { background: var(--guide-soft); }

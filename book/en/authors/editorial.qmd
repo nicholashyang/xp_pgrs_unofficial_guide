@@ -1,0 +1,19 @@
+---
+title: Editorial team
+discussion-id: xp-guide-author-editorial
+guide-author-id: editorial
+lang: en
+translation-source: authors/editorial.qmd
+translation-status: draft
+translation-source-sha256: 5dc57c37dee99f89afeeffea293784303ea1bf402db65f1326bd86505d4d5270
+---
+
+::: {#xp-guide-author-editorial}
+:::
+
+:::: {.contribution authors="editorial"}
+
+::: {.guide-author-profile data-guide-author-id="editorial"}
+:::
+
+::::

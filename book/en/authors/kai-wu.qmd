@@ -1,0 +1,19 @@
+---
+title: Kai Wu
+discussion-id: xp-guide-author-kai-wu
+guide-author-id: kai-wu
+lang: en
+translation-source: authors/kai-wu.qmd
+translation-status: draft
+translation-source-sha256: 936de967df69ad2410f68ca9acf153282455dd3368ba587e4398f7377fe518cb
+---
+
+::: {#xp-guide-author-kai-wu}
+:::
+
+:::: {.contribution authors="editorial"}
+
+::: {.guide-author-profile data-guide-author-id="kai-wu"}
+:::
+
+::::

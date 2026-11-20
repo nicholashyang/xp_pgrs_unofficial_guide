@@ -1,0 +1,47 @@
+# Display names are intentionally separate from Git commit authors and logins.
+guide-authors:
+  kai-wu: "吴开"
+  shiyao-zhang: "张世尧"
+  yue-zhou: "Yue Zhou"
+  ziwen-xie: "Ziwen Xie"
+  jialin-wang: "Jialin Wang"
+  editorial: "编辑组"
+  unknown: "归属待确认"
+
+guide-authors-en:
+  kai-wu: Kai Wu
+  shiyao-zhang: Shiyao Zhang
+  yue-zhou: Yue Zhou
+  ziwen-xie: Ziwen Xie
+  jialin-wang: Jialin Wang
+  editorial: Editorial team
+  unknown: Attribution awaiting confirmation
+
+# Optional public profiles, keyed by the same stable IDs as the display names.
+# Omit information that has not been supplied or confirmed by the author.
+# Field definitions and a complete example: CONTRIBUTING.md#作者清单与主页
+guide-author-profiles:
+  kai-wu:
+    type: person
+    project-roles: [项目发起人]
+    project-roles-en: [Project founder]
+  shiyao-zhang:
+    type: person
+    project-roles: [编辑]
+    project-roles-en: [Editor]
+    orcid: 0009-0000-1591-3759
+    google-scholar: https://scholar.google.com/citations?user=OCfMc6oAAAAJ
+    github: https://github.com/BillShiyaoZhang
+    email: shiyao.zhang14@student.xjtlu.edu.cn
+    bio: PhD student since 2022. Research on LLM Agent, Multi-Agent System, Ontology.
+    bio-en: PhD student since 2022. Research on LLM Agent, Multi-Agent System, Ontology.
+  yue-zhou:
+    type: person
+  ziwen-xie:
+    type: person
+  jialin-wang:
+    type: person
+  editorial:
+    type: team
+  unknown:
+    type: placeholder

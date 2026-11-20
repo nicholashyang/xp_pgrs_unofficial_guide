@@ -1,0 +1,15 @@
+---
+title: Yue Zhou
+discussion-id: xp-guide-author-yue-zhou
+guide-author-id: yue-zhou
+---
+
+::: {#xp-guide-author-yue-zhou}
+:::
+
+:::: {.contribution authors="editorial"}
+
+::: {.guide-author-profile data-guide-author-id="yue-zhou"}
+:::
+
+::::

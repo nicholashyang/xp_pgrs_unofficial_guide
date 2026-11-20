@@ -1,0 +1,15 @@
+---
+title: 吴开
+discussion-id: xp-guide-author-kai-wu
+guide-author-id: kai-wu
+---
+
+::: {#xp-guide-author-kai-wu}
+:::
+
+:::: {.contribution authors="editorial"}
+
+::: {.guide-author-profile data-guide-author-id="kai-wu"}
+:::
+
+::::

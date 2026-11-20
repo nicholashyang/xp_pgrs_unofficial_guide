@@ -1,0 +1,185 @@
+-- A contribution describes editorial attribution, never Git commit ownership.
+-- Keep this as a Pandoc filter so the source remains readable Markdown and the
+-- same attribution survives HTML, PDF and plain Markdown exports.
+local filter_file = debug.getinfo(1, "S").source:gsub("^@", "")
+local profile_renderer = dofile(pandoc.path.join({pandoc.path.directory(filter_file), "profile-links.lua"}))
+local public_profiles
+local registry = {}
+local english = false
+local profile_page = false
+local previous_signature = nil
+local run_number = 0
+local profile_prefix = "authors/"
+
+local function fail(message)
+  error("[attribution] " .. message, 0)
+end
+
+local function has_class(element, wanted)
+  for _, class in ipairs(element.classes or {}) do
+    if class == wanted then return true end
+  end
+  return false
+end
+
+local function read_registry(meta)
+  english = pandoc.utils.stringify(meta.lang or ""):match("^en") ~= nil
+  profile_page = pandoc.utils.stringify(meta["guide-author-id"] or "") ~= ""
+  previous_signature = nil
+  run_number = 0
+  registry = {}
+  public_profiles = profile_renderer.new(meta, "attribution")
+  if quarto and quarto.doc then
+    local input = quarto.doc.input_file
+    if type(input) == "function" then input = input() end
+    input = tostring(input):gsub("\\", "/"):gsub("^.-/book/en/", ""):gsub("^.-/book/", ""):gsub("^book/en/", ""):gsub("^book/", "")
+    profile_prefix = string.rep("../", select(2, input:gsub("/", "/"))) .. "authors/"
+  end
+  local authors = meta["guide-authors"]
+  if authors then
+    for identifier, value in pairs(authors) do
+      registry[identifier] = pandoc.utils.stringify((english and meta["guide-authors-en"] and meta["guide-authors-en"][identifier]) or value)
+    end
+  end
+  return meta
+end
+
+local function read_people(value, required)
+  local identifiers, names, seen = {}, {}, {}
+  for identifier in tostring(value or ""):gmatch("[^,%s]+") do
+    if not registry[identifier] then
+      fail("Unknown author ID '" .. identifier .. "'. Add it to book/_authors.yml.")
+    end
+    if not seen[identifier] then
+      seen[identifier] = true
+      identifiers[#identifiers + 1] = identifier
+      names[#names + 1] = registry[identifier]
+    end
+  end
+  if required and #names == 0 then
+    fail("Every .contribution block needs an explicit authors attribute (use unknown when uncertain).")
+  end
+  return identifiers, names
+end
+
+local function html_escape(value)
+  return tostring(value):gsub("&", "&amp;"):gsub("<", "&lt;")
+    :gsub(">", "&gt;"):gsub('"', "&quot;"):gsub("'", "&#39;")
+end
+
+local function label_text(names, contributors, uncertain)
+  local parts = {(english and "Original author: " or "原作者：") .. table.concat(names, "、")}
+  if #contributors > 0 then
+    parts[#parts + 1] = (english and "Substantive additions: " or "实质补充：") .. table.concat(contributors, "、")
+  end
+  if uncertain then parts[#parts + 1] = english and "Paragraph attribution awaiting confirmation" or "具体段落归属待确认" end
+  return table.concat(parts, "；")
+end
+
+local function profile_links(ids, names)
+  local links = {}
+  for i, id in ipairs(ids) do
+    local icons = public_profiles.links(id)
+    local profile = '<a class="attribution-person-name" href="' .. profile_prefix .. id .. '.html">' .. html_escape(names[i]) .. '</a>'
+    if #icons > 0 then
+      profile = profile .. public_profiles.html(icons, id, true, "guide-profile-links-attribution")
+    end
+    links[#links + 1] = '<span class="attribution-person" data-author-id="' .. html_escape(id) .. '">' .. profile .. '</span>'
+  end
+  return table.concat(links, "")
+end
+
+local function attribution_html(ids, names, contributor_ids, contributors, uncertain)
+  local rows = {'<p><strong>' .. (english and 'Original author' or '原作者') .. '</strong><span>' .. profile_links(ids, names) .. '</span></p>'}
+  if #contributors > 0 then
+    rows[#rows + 1] = '<p><strong>' .. (english and 'Substantive additions' or '实质补充') .. '</strong><span>' .. profile_links(contributor_ids, contributors) .. '</span></p>'
+  end
+  if uncertain then
+    rows[#rows + 1] = '<p class="attribution-status">' .. (english and 'Paragraph attribution awaiting confirmation' or '具体段落归属待确认') .. '</p>'
+  end
+  rows[#rows + 1] = '<p class="attribution-scope">' .. (english and 'Scope: the continuous content marked by the right-hand boundary.' or '范围：右侧边线标出的连续内容。') .. '</p>'
+  return '<details class="paragraph-attribution">' ..
+    '<summary aria-label="' .. html_escape((english and 'View attribution. ' or '查看署名。') .. label_text(names, contributors, uncertain)) .. '">' ..
+    '<svg class="attribution-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' ..
+    '<circle cx="12" cy="8" r="3"></circle><path d="M5.5 20v-2a6.5 6.5 0 0 1 13 0v2"></path></svg>' ..
+    '<span class="attribution-label">' .. (english and 'By ' or '作者：') .. html_escape(table.concat(names, "、")) .. '</span></summary>' ..
+    '<div class="attribution-card" role="note">' .. table.concat(rows, "") .. '</div></details>'
+end
+
+local function signature(ids, contributors, uncertain)
+  local authors, additions = {table.unpack(ids)}, {table.unpack(contributors)}
+  table.sort(authors)
+  table.sort(additions)
+  return table.concat(authors, ",") .. "|" .. table.concat(additions, ",") .. "|" .. tostring(uncertain)
+end
+
+local function contribution(div)
+  if not has_class(div, "contribution") then return nil end
+  local ids, names = read_people(div.attributes.authors, true)
+  local contributor_ids, contributors = read_people(div.attributes.contributors, false)
+  local status = div.attributes.status
+  if status and status ~= "unverified" then
+    fail("Unsupported contribution status '" .. status .. "'.")
+  end
+  local uncertain = status == "unverified"
+  if FORMAT:match("html") then
+    if profile_page then
+      -- A profile introduces the named person. An editorial attribution rail
+      -- here would look like that person's identity rather than page upkeep.
+      div.classes = div.classes:filter(function(name) return name ~= "contribution" end)
+      div.attributes.authors = nil
+      div.attributes.contributors = nil
+      div.attributes.status = nil
+      return div
+    end
+    pandoc.Div(div.content):walk({Div = function(child)
+      if has_class(child, "contribution") then
+        fail("Nested .contribution blocks are ambiguous; use adjacent blocks instead.")
+      end
+    end})
+    local key = signature(ids, contributor_ids, uncertain)
+    if key ~= previous_signature then
+      run_number = run_number + 1
+      div.content:insert(1, pandoc.RawBlock("html", attribution_html(ids, names, contributor_ids, contributors, uncertain)))
+    end
+    previous_signature = key
+    div.attributes["data-author-ids"] = table.concat(ids, ",")
+    div.attributes["data-contributor-ids"] = table.concat(contributor_ids, ",")
+    div.attributes["data-attribution-status"] = status or "confirmed"
+    div.attributes["data-attribution-run"] = tostring(run_number)
+    div.attributes.role = "group"
+    div.attributes["aria-label"] = label_text(names, contributors, uncertain)
+
+    div.attributes.authors = nil
+    div.attributes.contributors = nil
+    div.attributes.status = nil
+    return div
+  end
+  local result = pandoc.Blocks({})
+  local key = signature(ids, contributor_ids, uncertain)
+  -- A print credit applies until the authorship changes, including across
+  -- section headings. Plain Markdown keeps each source block self-contained.
+  if not FORMAT:match("latex") or key ~= previous_signature then
+    result:insert(pandoc.Para({
+      pandoc.Strong({pandoc.Str(english and "Attribution: " or "署名：")}),
+      pandoc.Str(label_text(names, contributors, uncertain))
+    }))
+  end
+  if FORMAT:match("latex") then previous_signature = key end
+  result:extend(div.content)
+  -- Unwrap to ordinary blocks in GFM/PDF: no widget markup or custom source
+  -- syntax should be required to read the exported text.
+  return result
+end
+
+local blocks = {Div = contribution}
+if FORMAT:match("latex") then
+  -- Quarto combines chapters into one PDF document. Visit headings and credit
+  -- blocks in source order so every chapter starts with an explicit credit.
+  blocks.traverse = "topdown"
+  blocks.Header = function(header)
+    if header.level == 1 then previous_signature = nil end
+  end
+end
+
+return {{Meta = read_registry}, blocks}

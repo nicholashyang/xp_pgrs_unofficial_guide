@@ -1,0 +1,15 @@
+---
+title: 编辑组
+discussion-id: xp-guide-author-editorial
+guide-author-id: editorial
+---
+
+::: {#xp-guide-author-editorial}
+:::
+
+:::: {.contribution authors="editorial"}
+
+::: {.guide-author-profile data-guide-author-id="editorial"}
+:::
+
+::::
